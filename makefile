@@ -9,8 +9,5 @@ shell379.o: shell379.cpp shell379.h
 main.o: main.cpp
 	g++ -c main.cpp -o main.o
 
-test.o: test.cpp
-	g++ -c test.cpp -o test.o
-
 clean:
 	rm ./*o ./shell379

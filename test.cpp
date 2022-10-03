@@ -10,7 +10,11 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-    sleep(3);
-    cout << "TESTING PROGRAM" << endl;
+    int ans = 2;
+    for (int i = 1; i < 100000;++i) {
+        //cout << 2*i << endl;
+    }
+    cout << ans << endl;
+    //fflush(stdout);
     return (0);
 }

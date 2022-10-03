@@ -1,0 +1,17 @@
+my ppid is: 114826
+Running processes:
+#	PID	S	SEC	COMMAND
+S
+PID
+PPID
+CMD
+
+S
+114852
+114826
+./shell379
+
+Processes =	1 active
+Completed processes:
+User time =	0 seconds
+Sys time =	0 seconds

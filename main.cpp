@@ -10,24 +10,18 @@
 
 using namespace std;
 
-#define LINE_LENGTH 100 // Max # of characters in an input line
-#define MAX_ARGS 7 // Max number of arguments to a command
-#define MAX_LENGTH 20 // Max # of characters in an argument
-#define MAX_PT_ENTRIES 32 // Max entries in the Process Table
-#define BUFFER_SIZER 1024 // max size of buffer when piping
-
+ProcessTable processTable;
 
 int main(void) {
     string cmd;
-    ProcessTable processTable(getpid());
 
+    // get user input
     while(getline(cin, cmd)) {
         string arg;
         vector<string> args;
-        // const char *args[MAX_ARGS + 1];
-        // int i = 0;
         string inp = "", out = "";
         bool background_process = false;
+
 
         for (istringstream line(cmd); line >> arg;) {
             if (arg[0] == '<') { inp = arg.substr(1); }
@@ -36,32 +30,27 @@ int main(void) {
 
             args.push_back(arg);
         }
-        
-        // for (string arg: args_to_verify) {
-        //     args[i] = arg.c_str(); 
-        //     ++i;
-        // }
-        // args[args_to_verify.size() + 1] = NULL;
 
-        // cout << args[0] << args[1] << endl;
+        // test user input
         switch(validate_args(args)) {
             case 0: {
-                    cout << "invalid command" << endl;
-                    break;
-                }
+                cout << "invalid command" << endl;
+                break;
+            }
             case 1: {
-                    // exit
-                    exit();
-                    break;
-                }
+                // exit
+                exit(processTable, out, background_process, cmd);
+                break;
+            }
             case 2: {
-                // jobs
-                find_jobs(processTable);
+                // job
+                find_jobs(processTable, out, background_process, cmd);
                 break;
             } 
             case 3: {
                 // kill
                 kill(stoi(args[1]), SIGKILL);
+                processTable.rem(stoi(args[1]));
                 break;
             }
             case 4: {
